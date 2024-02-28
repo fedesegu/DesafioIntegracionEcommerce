@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>USUARIOS</title>
+</head>
+<header>
+    <h1>
+        USUARIOS
+    </h1>
+</header>
+<body>
+    
+    {{#if users.length}}
+        <div class="product-cards">
+            {{#each users}}
+                <div class="product-card">
+                    <h4>NOMBRE: {{name}}</h4>
+                    <h4 id="email">EMAIL: {{email}}</h4>
+                    <h4>ROL: {{role}}</h4>
+                    <form id="changeRoleForm">
+                        <label for="role">Nuevo Rol:</label>
+                        <select id="role" name="role">
+                            <option value="user">Usuario</option>
+                            <option value="premium">Premium</option>
+                        </select>
+                        <input type="hidden" name="uid" id="uid" value="{{uid}}">
+                        <button type="button" onclick="changeRole('{{uid}}')">Cambiar Rol</button>
+                    </form>
+                </div> 
+            {{/each}}
+        </div>
+    {{else}} 
+        <p>No users available.</p>
+    {{/if}}     
+</body>
+
+<script src="../public/functions.js"></script>

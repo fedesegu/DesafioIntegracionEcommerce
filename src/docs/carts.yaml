@@ -1,0 +1,207 @@
+paths:
+  /api/carts:
+    get:
+      summary: Get all carts
+      tags:
+        - Carts
+      responses:
+        "200":
+          description: All carts
+        "500":
+          description: Server error
+
+  /api/carts/{id}:
+    get:
+      summary: Get cart by id
+      tags:
+        - Carts
+      parameters:
+        - name: id
+          in: path
+          description: Cart identifier
+      responses:
+        "200":
+          description: One cart found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Cart"
+              example:
+                id: abcdef
+                products:
+                  - id: klklkl
+                    quantity: 1
+                totalProducts: 1
+                totalPrice: 3000
+        "404":
+          description: Cart not found
+        "500":
+          description: Server error
+    post:
+      summary: Create a new cart
+      tags:
+        - Carts
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Cart"
+            example:
+              id: abcdef
+              products:
+                - id: klklkl
+                  quantity: 1
+              totalProducts: 1
+              totalPrice: 3000
+      responses:
+        "200":
+          description: Cart created
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Cart"
+              example:
+                id: abcdef
+                products:
+                  - id: klklkl
+                    quantity: 1
+                totalProducts: 1
+                totalPrice: 3000
+        "500":
+          description: Server error
+    delete:
+      summary: Delete cart by id
+      tags:
+        - Carts
+      parameters:
+        - name: id
+          in: path
+          description: Cart identifier
+      responses:
+        "200":
+          description: Cart deleted
+        "500":
+          description: Server error
+  
+  /api/carts/{id}/products/{id}:
+    post:
+      summary: Add one product to cart
+      tags:
+        - Carts
+      parameters:
+        - name: id cart
+          in: path
+          description: Cart identifier
+        - name: id product
+          in: path
+          description: Product identifier
+      responses:
+        "200":
+          description: Product added
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Cart"
+              example:
+                id: abcdef
+                products:
+                  - id: klklkl
+                    quantity: 1
+                totalProducts: 1
+                totalPrice: 3000
+        "404":
+          description: You cannot add your own products or Insufficient stock
+        "500":
+          description: Server error
+    put:
+      summary: Update cart by id
+      tags:
+        - Carts
+      parameters:
+        - name: id cart
+          in: path
+          description: Cart identifier
+        - name: id product
+          in: path
+          description: Product identifier
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Cart"
+            example:
+              quantity: 3
+      responses:
+        "200":
+          description: Cart updated
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Cart"
+              example:
+                id: abcdef
+                products:
+                  - id: klklkl
+                    quantity: 2
+                totalProducts: 2
+                totalPrice: 3000
+        "500":
+          description: Server error
+    delete:
+      summary: Delete one product to cart
+      tags:
+        - Carts
+      parameters:
+        - name: id cart
+          in: path
+          description: Cart identifier
+        - name: id product
+          in: path
+          description: Product identifier
+      responses:
+        "200":
+          description: Product delete
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Cart"
+              example:
+                id: abcdef
+                products:
+                  - id: klklkl
+                    quantity: 1
+                totalProducts: 1
+                totalPrice: 3000
+        "500":
+          description: Server error
+
+
+
+components:
+  schemas:
+    CartProduct:
+      type: object
+      properties:
+        id:
+          type: string
+        quantity:
+          type: integer
+
+    Cart:
+      type: object
+      properties:
+        products:
+          type: array
+          items:
+            $ref: "#/components/schemas/CartProduct"
+        totalProducts:
+          type: number
+        totalPrice:
+          type: number
+      example:
+          id: abcdef
+          products:
+            - id: klklkl
+              quantity: 1
+          totalProducts: 2
+          totalPrice: 3000

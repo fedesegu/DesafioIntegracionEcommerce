@@ -1,0 +1,22 @@
+<header>
+    <h1>
+        MOCKING PRODUCTS
+    </h1>
+</header>
+
+{{#if products.length}}
+    <div class="product-cards">
+        {{#each products}}
+        <div class="product-card">
+            <h4>TITLE: {{title}}</h4>
+            <p>DESCRIPTION: {{description}}</p>
+            <p>PRICE: ${{price}}</p>
+            <img src="{{thumbail}}" alt="{{title}}">      
+            <button class="boton"><a href="/api/views/products/{{_id}}">VER MAS</a></button>
+
+        </div>
+        {{/each}}
+    </div>
+{{else}}
+    <p>No products available.</p>
+{{/if}} 

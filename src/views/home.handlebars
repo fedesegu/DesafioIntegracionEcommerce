@@ -1,0 +1,53 @@
+<header>
+    <h1>
+     HOME
+    </h1>
+</header>
+
+
+
+{{#if user}}
+    <div class="userDiv">
+        <h2>WELCOME {{name}}</h2>
+        <h4>Your email is: {{email}} </h4>
+        <button class="boton"><a href="/api/session/signout">SIGN OUT</a></button>
+        <input type="hidden" name="token" id="token" value="{{token}}">
+        <button class="boton"><a href="/api/views/realTimeProducts">Access DBA</a></button>
+        <button class="boton"><a href="/api/views/users/{{uid}}">Mi perfil</a></button>
+
+    </div>
+
+
+{{/if}}
+
+<div class="carrito">
+    <a href="/api/views/carts/{{cartId}}" id="carritoLink">
+        <img class="imagen-carrito" src="" alt="Carrito de compras">
+    </a>
+    <span id="contadorCarrito"> {{quantity}} </span>
+    <input type="hidden" id="cartId" value="{{ cartId }}">
+
+</div>
+
+
+{{#if products.length}}
+    <div class="product-cards">
+        {{#each products}}
+        <div class="product-card">
+            <h4>TITLE: {{title}}</h4>
+            <p>DESCRIPTION: {{description}}</p>
+            <p>PRICE: ${{price}}</p>
+            <img src="{{thumbail}}" alt="{{title}}">      
+            <button class="boton"><a href="/api/views/products/{{_id}}">VER MAS</a></button>
+        </div>
+        {{/each}}
+    </div>
+
+
+    <div class="pagination">
+        <button class="boton" id="prev-page" {{#if prevPage}}data-page="{{prevPage}}"{{/if}}><a id="pagination_button" href="home/?limit={{limit}}&page={{prevPage}}">Previous Page</a></button>
+        <button class="boton" id="next-page" {{#if nextPage}}data-page="{{nextPage}}"{{/if}}><a id="pagination_button" href="home/?limit={{limit}}&page={{nextPage}}">Next Page</a></button>
+    </div>
+{{else}}
+    <p>No products available.</p>
+{{/if}} 

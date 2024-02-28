@@ -1,0 +1,14 @@
+<header>
+    <h1>
+        RESTAURAR VIA MAIL
+    </h1>
+</header>
+<h2>
+        "Por favor ingrese su email y se le enviara un correo electrónico para restablecer la contraseña"
+<div class="login-container">
+    <form action="/api/session/restaurarviamail" class="form-group" method="post">
+        Email: <input type="email" name="email" id="email">
+        <input type="hidden" name="token" id="token" value="{{token}}">
+        <button class="boton" id="email" data-mail-id="{{email}}" onclick="restaurarviamail({{email}})">ENVIAR</button>
+    </form>
+</div>
